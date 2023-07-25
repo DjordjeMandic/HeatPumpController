@@ -13,6 +13,10 @@
 #include <LittleFS.h>
 #include <SimpleFTPServer.h>
 
+#ifdef MDNS_SERVICE_HOSTNAME
+#include <ESPmDNS.h>
+#endif
+
 static const char* TAG = "WiFi-Main";
 
 //const char* ssidAp = "Heat Pump Controller";
@@ -98,6 +102,14 @@ void startWifiAndServer()
     {
         LOG_ERROR(TAG, "Cant start FTP server, filesystem not ready");
     }
+
+#ifdef MDNS_SERVICE_HOSTNAME
+    LOG_INFO(TAG, "Starting mDNS service, hostname: %s", MDNS_SERVICE_HOSTNAME);
+    if(!MDNS.begin(MDNS_SERVICE_HOSTNAME))
+    {
+        LOG_ERROR(TAG, "Failed to start mDNS");
+    }
+#endif
 }
 
 void wifiLoop()
