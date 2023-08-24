@@ -36,8 +36,9 @@
 .piolibdeps
 .clang_complete
 .gcc-flags.json
-.pio
-.pio/build/*
+.pio/**
+!.pio/**/
+!.pio/libdeps/esp32doit-devkit-v1/TFT_eSPI/User_Setup_Select.h
 
 .vscode/*
 !.vscode/settings.json
